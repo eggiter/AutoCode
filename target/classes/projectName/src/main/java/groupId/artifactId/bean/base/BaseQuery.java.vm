@@ -1,0 +1,7 @@
+package ${groupId}.${artifactId}.bean.base;
+
+import java.io.Serializable;
+
+public class BaseQuery implements Serializable {
+
+}

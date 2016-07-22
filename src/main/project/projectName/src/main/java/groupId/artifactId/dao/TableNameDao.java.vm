@@ -1,0 +1,15 @@
+package ${groupId}.${artifactId}.dao;
+
+import ${groupId}.${artifactId}.bean.${tableNameUpperCase};
+import ${groupId}.${artifactId}.dao.base.BaseDao;
+
+/**
+ * Data Access Object For Entity ${tableNameUpperCase}
+ * ${tableComment}
+ * @author ${author}
+ */
+public interface ${tableNameUpperCase}Dao extends BaseDao<${tableNameUpperCase}, Long> {
+    // ${customizedCodeAreaStart}
+$!{userTypedCode}
+    // ${customizedCodeAreaEnd}
+}

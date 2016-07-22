@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace命名空间,作用就是对sql进行分类化管理,理解sql隔离
+注意:使用mapper代理方法开发,namespace有特殊重要的作用,namespace等于mapper接口地址-->
+<mapper namespace="com.lhd.autocode.dao.TableDao">
+    <select id="getTableListTest" parameterType="String" resultType="Table">
+        SELECT t.TABLE_SCHEMA as tableSchema
+        FROM
+          `information_schema`.`TABLES` t
+        WHERE
+          t.TABLE_SCHEMA = #{tableSchema}
+    </select>
+
+    <select id="getTableList" parameterType="java.util.Map" resultMap="tableResultMap">
+        SELECT
+          t.TABLE_SCHEMA,
+          t.TABLE_NAME,
+          t.TABLE_COMMENT,
+          c.TABLE_SCHEMA,
+          c.TABLE_NAME,
+          c.COLUMN_NAME,
+          c.ORDINAL_POSITION,
+          c.COLUMN_DEFAULT,
+          c.IS_NULLABLE,
+          c.DATA_TYPE,
+          c.NUMERIC_PRECISION,
+          c.NUMERIC_SCALE,
+          c.COLUMN_KEY,
+          c.EXTRA,
+          c.COLUMN_COMMENT
+        FROM
+          `information_schema`.`TABLES` t
+          INNER JOIN
+          `information_schema`.`COLUMNS` c
+          USING (TABLE_NAME)
+        WHERE
+          t.TABLE_SCHEMA = #{tableSchema}
+          AND c.TABLE_SCHEMA = #{tableSchema}
+          <if test="tableNames!=null and tableNames.size()>0">
+              AND t.TABLE_NAME IN 
+              <foreach collection="tableNames" item="item" index="index"
+                       open="(" separator="," close=")">
+                  #{item}
+              </foreach>
+          </if>
+    </select>
+    
+    <resultMap id="tableResultMap" type="Table">
+        <result column="TABLE_SCHEMA" property="tableSchema"/>
+        <result column="TABLE_NAME" property="tableName"/>
+        <result column="TABLE_COMMENT" property="tableComment"/>
+        <collection property="columns" ofType="Column">
+            <result column="TABLE_SCHEMA" property="tableSchema"/>
+            <result column="TABLE_NAME" property="tableName"/>
+            <result column="COLUMN_NAME" property="columnName"/>
+            <result column="ORDINAL_POSITION" property="ordinalPosition"/>
+            <result column="COLUMN_DEFAULT" property="columnDefault"/>
+            <result column="IS_NULLABLE" property="isNullable"/>
+            <result column="DATA_TYPE" property="dataType"/>
+            <result column="NUMERIC_PRECISION" property="numericPrecision"/>
+            <result column="NUMERIC_SCALE" property="numericScale"/>
+            <result column="COLUMN_KEY" property="columnKey"/>
+            <result column="EXTRA" property="extra"/>
+            <result column="COLUMN_COMMENT" property="columnComment"/>
+        </collection>
+    </resultMap>
+</mapper>

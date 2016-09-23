@@ -50,6 +50,7 @@
         </where>
     </sql>
 
+    <!-- update cause -->
     <sql id="SQL_UPDATE_COLUMNS">
         <set>
 #foreach($column in $columns)
@@ -60,12 +61,22 @@
         </set>
     </sql>
 
+    <!-- order by cause -->
+    <sql id="SQL_ORDERBY_CAUSE">
+        <if test="orderBy != null and orderBy != ''">
+            <![CDATA[ORDER BY ${orderBy} ${order}]]>
+        </if>
+        <if test="offset != null">
+            <![CDATA[LIMIT #{offset}, #{limit}]]>
+        </if>
+    </sql>
 
+    <!-- insert new entry -->
     <insert id="insertEntry" parameterType="${groupId}.${artifactId}.bean.${tableNameUpperCase}">
         INSERT INTO ${tableName}
-        (#foreach($column in ${columns})#if(${column.columnName} != "id" && ${column.columnNameLowerCase} != "metaDeleted")${column.columnName}#if($velocityCount != ${columns.size()} - 1), #end#end#end )
+        (#foreach($column in ${columns})#if(${column.columnName} != "id" && ${column.columnNameLowerCase} != "metaDeleted")${column.columnName}#if($velocityCount != ${columns.size()}), #end#end#end )
         VALUES
-        (#foreach($column in ${columns})#if(${column.columnName} != "id" && ${column.columnNameLowerCase} != "metaDeleted")#if(${column.columnNameLowerCase} == "metaCreated" || ${column.columnNameLowerCase} == "metaUpdated" )now()#else#{${column.columnNameLowerCase}}#end#if($velocityCount != ${columns.size()} - 1), #end#end#end )
+        (#foreach($column in ${columns})#if(${column.columnName} != "id" && ${column.columnNameLowerCase} != "metaDeleted")#if(${column.columnNameLowerCase} == "metaCreated" || ${column.columnNameLowerCase} == "metaUpdated" )now()#else#{${column.columnNameLowerCase}}#end#if($velocityCount != ${columns.size()}), #end#end#end )
     </insert>
 
     <!-- delete by ids -->
@@ -106,6 +117,7 @@
         <include refid="SQL_COLUMN_LIST"/>
         <include refid="SQL_FROM_CAUSE"/>
         <include refid="SQL_WHERE_CAULSE"/>
+        <include refid="SQL_ORDERBY_CAUSE"/>
     </select>
 
     <!-- select count by condition -->

@@ -1,0 +1,28 @@
+package ${groupId}.${artifactId}.service;
+
+import ${groupId}.${artifactId}.bean.${tableNameUpperCase};
+import ${groupId}.${artifactId}.dao.${tableNameUpperCase}Dao;
+import ${groupId}.${artifactId}.dao.base.BaseDao;
+import ${groupId}.${artifactId}.service.base.BaseService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+/**
+ * Service
+ * @author ${author}
+ */
+@Service
+public class ${tableNameUpperCase}Service extends BaseService<${tableNameUpperCase}, Long> {
+
+    @Autowired
+    private ${tableNameUpperCase}Dao ${tableNameLowerCase}Dao;
+
+    @Override
+    protected BaseDao<${tableNameUpperCase}, Long> getDao() {
+        return this.${tableNameLowerCase}Dao;
+    }
+
+    // ${customizedCodeAreaStart}
+$!{userTypedCode}
+    // ${customizedCodeAreaEnd}
+}

@@ -32,11 +32,6 @@ public class BaseBean extends BaseQuery{
     private Integer deletedMark;
 
     /**
-     * Deleted Time
-     */
-    private Date metaDeleted;
-
-    /**
      * Extra data for query
      */
     private Map<String, String> extraMap;
@@ -83,14 +78,6 @@ public class BaseBean extends BaseQuery{
 
     public void setDeletedMark(Integer deletedMark) {
         this.deletedMark = deletedMark;
-    }
-
-    public Date getMetaDeleted() {
-        return metaDeleted;
-    }
-
-    public void setMetaDeleted(Date metaDeleted) {
-        this.metaDeleted = metaDeleted;
     }
 
     public Map<String, String> getExtraMap() {

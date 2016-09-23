@@ -24,7 +24,6 @@ public enum EmConstant {
         metaCreated,
         metaUpdated,
         deletedMark,
-        metaDeleted,
         ;
     }
 }

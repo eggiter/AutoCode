@@ -141,11 +141,11 @@ public class GenerateCode {
                     continue;
                 }
                 if (isUserTypedCode){
-                    buffer.append(line);
                     if (isFirst)
                         isFirst = false;
                     else
                         buffer.append(Constant.LINE_BREAKER);
+                    buffer.append(line);
                 }
             }
         } catch (FileNotFoundException e) {

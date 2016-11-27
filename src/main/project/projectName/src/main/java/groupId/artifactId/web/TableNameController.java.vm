@@ -49,12 +49,14 @@ public class ${tableNameUpperCase}Controller extends BaseController<${tableNameU
             e.printStackTrace();
             response = new Response<Integer>(e.getMessage());
         }
+        logger.info("response: " + JSON.toJSONString(response));
         return response;
     }
 
     @RequestMapping("/{id}/delete")
     @ResponseBody
     public Response<Integer> delete(@PathVariable Long id){
+        logger.info("delete: " + JSON.toJSONString(id));
         Response<Integer> response;
         try {
             response = new Response<Integer>(baseDelete(id));
@@ -63,12 +65,14 @@ public class ${tableNameUpperCase}Controller extends BaseController<${tableNameU
             e.printStackTrace();
             response = new Response<Integer>(e.getMessage());
         }
+        logger.info("response: " + JSON.toJSONString(response));
         return response;
     }
 
-    @RequestMapping("/${tableNameLowerCase}s")
+    @RequestMapping("/list")
     @ResponseBody
     public Response<Page<${tableNameUpperCase}>> list (HttpServletRequest request){
+        logger.info("list");
         ${tableNameUpperCase} ${tableNameLowerCase} = JSON.parseObject(request.getParameter("${tableNameLowerCase}"), ${tableNameUpperCase}.class);
         Page<${tableNameUpperCase}> page = JSON.parseObject(request.getParameter("page"), new TypeReference<Page<${tableNameUpperCase}>>(){});
         Response<Page<${tableNameUpperCase}>> response;
@@ -79,12 +83,14 @@ public class ${tableNameUpperCase}Controller extends BaseController<${tableNameU
             e.printStackTrace();
             response = new Response<Page<${tableNameUpperCase}>>(e.getMessage());
         }
+        logger.info("response: " + JSON.toJSONString(response));
         return response;
     }
 
     @RequestMapping("/{id}/detail")
     @ResponseBody
     public Response<${tableNameUpperCase}> detail(@PathVariable Long id){
+        logger.info("detail: " + JSON.toJSONString(id));
         Response<${tableNameUpperCase}> response;
         try {
             response = new Response<${tableNameUpperCase}>(baseView(id));
@@ -93,6 +99,7 @@ public class ${tableNameUpperCase}Controller extends BaseController<${tableNameU
             e.printStackTrace();
             response = new Response<${tableNameUpperCase}>(e.getMessage());
         }
+        logger.info("response: " + JSON.toJSONString(response));
         return response;
     }
 

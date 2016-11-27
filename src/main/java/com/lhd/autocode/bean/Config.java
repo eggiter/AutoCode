@@ -55,7 +55,6 @@ public class Config {
         parseTableNames();
         parseQueryColumns();
         this.templateDirectory = "src/main/project";
-        System.out.println("post construct");
     }
 
     private void parseTableNames(){

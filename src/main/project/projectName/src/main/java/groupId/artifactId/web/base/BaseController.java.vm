@@ -2,6 +2,7 @@ package ${groupId}.${artifactId}.web.base;
 
 import ${groupId}.${artifactId}.bean.base.BaseBean;
 import ${groupId}.${artifactId}.common.Page;
+import ${groupId}.${artifactId}.enums.EmDeletedMark;
 import ${groupId}.${artifactId}.service.base.BaseService;
 
 import java.io.Serializable;
@@ -17,7 +18,7 @@ public abstract class BaseController <T extends BaseBean, KEY extends Serializab
      */
     protected Integer baseSave(T t){
         if (t.getId() == null) { // insert
-            t.setDeletedMark(1);
+            t.setDeletedMark(EmDeletedMark.VALID.getCode());
             return getService().insertEntry(t);
         } else {    // update
             return getService().updateByKey(t);
@@ -33,7 +34,7 @@ public abstract class BaseController <T extends BaseBean, KEY extends Serializab
         Integer affectedRows = 0;
         for (KEY key : keys){
             T t = getService().selectByKey(key);
-            t.setDeletedMark(0);
+            t.setDeletedMark(EmDeletedMark.INVALID.getCode());
             affectedRows += getService().updateByKey(t);
         }
         return affectedRows;
